@@ -30,3 +30,23 @@ treemap.c:116:17: error: assignment from incompatible pointer type [-Werror=inco
                  ^
 cc1.exe: all warnings being treated as errors
 b149537
+Tue, Apr 29, 2025 10:54:09 PM: 
+ treemap.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+Compilation failed
+In file included from test.c:4:0:
+treemap.c: In function 'searchTreeMap':
+treemap.c:114:22: error: comparison of distinct pointer types lacks a cast [-Werror]
+         else if (key < aux->current)
+                      ^
+treemap.c:115:17: error: assignment from incompatible pointer type [-Werror=incompatible-pointer-types]
+             aux = aux->current->left ;
+                 ^
+treemap.c:117:17: error: assignment from incompatible pointer type [-Werror=incompatible-pointer-types]
+             aux = aux->current->right ;
+                 ^
+treemap.c:108:18: error: 'aux' is used uninitialized in this function [-Werror=uninitialized]
+     aux->current = tree->root ;
+     ~~~~~~~~~~~~~^~~~~~~~~~~~
+cc1.exe: all warnings being treated as errors
+fd087b1
