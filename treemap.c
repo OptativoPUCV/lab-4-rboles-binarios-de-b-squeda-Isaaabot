@@ -47,11 +47,12 @@ TreeMap *createTreeMap(int (*lower_than) (void *key1, void *key2))
     if (nuevo == NULL)  // Verficación de reserva de memoria
         exit(EXIT_FAILURE) ;
     
+    // Inicialización de variables
     nuevo->root = NULL ;
     nuevo->current = NULL ;
     nuevo->lower_than = lower_than ;
 
-    return nuevo ;
+    return nuevo ;  // Retorna el mapa
 }
 
 /*
@@ -78,7 +79,7 @@ void insertTreeMap(TreeMap *tree, void *key, void *value)
             current_aux = current_aux->right ;
     }
     
-    TreeNode *nuevo = createTreeNode(key, value) ;
+    TreeNode *nuevo = createTreeNode(key, value) ;  // Se crea el nuevo nodo
     nuevo->parent = padre ;
 
     if (tree->lower_than(key, padre->pair->key))
@@ -96,11 +97,11 @@ llegar al final del subárbol. Si x no tiene hijo izquierdo se retorna el mismo 
 */
 TreeNode *minimum(TreeNode *x)
 {
-    while (x->left != NULL)
+    while (x->left != NULL) // Mientras la rama izquierda no sea NULL
     {
-        x = x->left ;
+        x = x->left ;   // Seguirá avanzando por la izquierda
     }
-    return x ;
+    return x ;  // Retorna el nodo con la minima clave
 }
 
 /*
