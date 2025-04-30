@@ -50,3 +50,9 @@ treemap.c:108:18: error: 'aux' is used uninitialized in this function [-Werror=u
      ~~~~~~~~~~~~~^~~~~~~~~~~~
 cc1.exe: all warnings being treated as errors
 fd087b1
+Tue, Apr 29, 2025 11:04:58 PM: 
+ treemap.c | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
+ tests:  11|6
+total_score: 15/70
+ec1abe3

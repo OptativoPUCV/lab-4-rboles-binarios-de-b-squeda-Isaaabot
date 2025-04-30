@@ -104,20 +104,22 @@ apunte al nodo encontrado.
 */
 Pair *searchTreeMap(TreeMap *tree, void *key) 
 {
-    TreeMap *aux ;
-    aux->current = tree->root ;
+    TreeNode *current_aux = tree->root ;
 
-    while (aux != NULL)
+    while (current_aux != NULL)
     {
-        if (key == aux->current)
-            return aux->current->pair ; // Se retorna el par en caso de que se encuentre
-        else if (key < aux->current)
-            aux = aux->current->left ;
+        if (is_equal(tree, key, current_aux->pair->key))
+        {
+            tree->current = current_aux ;
+            return current_aux->pair ; // Se retorna el par en caso de que se encuentre
+        }
+        else if (tree->lower_than(key, current_aux->pair->key))
+            current_aux = current_aux->left ;
         else
-            aux = aux->current->right ;
+            current_aux = current_aux->right ;
     }
 
-    return NULL ;   // Si no se encuentra, retorna NULL
+    return NULL ;   // Si no se encuentra la clave, retorna NULL
 }
 
 /*
