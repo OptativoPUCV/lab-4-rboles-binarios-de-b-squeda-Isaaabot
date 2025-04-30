@@ -10,3 +10,23 @@ Tue, Apr 29, 2025 10:38:17 PM:
  tests:  4|7
 total_score: 5/70
 c744b82
+Tue, Apr 29, 2025 10:51:15 PM: 
+ treemap.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+Compilation failed
+In file included from test.c:4:0:
+treemap.c: In function 'searchTreeMap':
+treemap.c:107:20: error: initialization from incompatible pointer type [-Werror=incompatible-pointer-types]
+     TreeMap *aux = tree->root ;
+                    ^~~~
+treemap.c:113:22: error: comparison of distinct pointer types lacks a cast [-Werror]
+         else if (key < aux->current)
+                      ^
+treemap.c:114:17: error: assignment from incompatible pointer type [-Werror=incompatible-pointer-types]
+             aux = aux->current->left ;
+                 ^
+treemap.c:116:17: error: assignment from incompatible pointer type [-Werror=incompatible-pointer-types]
+             aux = aux->current->right ;
+                 ^
+cc1.exe: all warnings being treated as errors
+b149537
