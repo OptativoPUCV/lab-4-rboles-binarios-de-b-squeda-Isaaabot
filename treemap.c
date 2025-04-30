@@ -62,7 +62,32 @@ dato ya existe retorne sin hacer nada (recuerde que el mapa no permite claves re
 */
 void insertTreeMap(TreeMap *tree, void *key, void *value) 
 {
+    TreeNode *padre = NULL ;
+    TreeNode *current_aux = tree->root ;
 
+    while (current_aux != NULL)
+    {
+        if (is_equal(tree, key, current_aux->pair->key))    // Si la clave ya existe, no se inserta nada
+            return ;
+
+        padre = current_aux ;
+
+        if (tree->lower_than(key, current_aux->pair->key))
+            current_aux = current_aux->left ;
+        else
+            current_aux = current_aux->right ;
+    }
+    
+    TreeNode *nuevo = createTreeNode(key, value) ;
+    nuevo->parent = padre ;
+
+    if (tree->lower_than(key, padre->pair->key))
+        padre->left = nuevo ;
+    else
+        padre->right = nuevo ;
+
+    tree->current = nuevo ; // Apunta al nuevo nodo que se insertó
+    
 }
 
 /*
