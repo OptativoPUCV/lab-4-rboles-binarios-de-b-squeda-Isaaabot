@@ -87,7 +87,6 @@ void insertTreeMap(TreeMap *tree, void *key, void *value)
         padre->right = nuevo ;
 
     tree->current = nuevo ; // Apunta al nuevo nodo que se insertó
-    
 }
 
 /*
@@ -97,8 +96,11 @@ llegar al final del subárbol. Si x no tiene hijo izquierdo se retorna el mismo 
 */
 TreeNode *minimum(TreeNode *x)
 {
-
-    return NULL ;
+    while (x->left != NULL)
+    {
+        x = x->left ;
+    }
+    return x ;
 }
 
 /*
@@ -110,7 +112,54 @@ con los del nodo "minimum". Elimine el nodo minimum (para hacerlo puede usar la 
 */
 void removeNode(TreeMap *tree, TreeNode *node) 
 {
+    if (node->left == NULL && node->right == NULL)  // Caso 1: Nodo sin hijos
+    {
+        if (node->parent == NULL)
+            tree->root = NULL ;
+        else
+        {
+            if (node->parent->left == node)
+                node->parent->left = NULL ;
+            else
+                node->parent->right = NULL ;
+        }
+        free(node->pair) ;
+        free(node) ;
+    
+        return ;
+    }
 
+    if (node->left == NULL || node->right == NULL)  // Caso 2: Nodo con un solo hijo
+    {
+        TreeNode *hijo ;
+
+        if (node->left != NULL)
+            hijo = node->left ;
+        else
+            hijo = node->right ;
+
+        if (node->parent == NULL)
+            tree->root = hijo ;
+        else
+        {
+            if (node->parent->left == node)
+                node->parent->left = hijo ;
+            else
+                node->parent->right = hijo ;
+        }
+        hijo->parent = node->parent ;
+        
+        free(node->pair) ;
+        free(node) ;
+
+        return ;
+    }
+    
+    TreeNode *nodo_min = minimum(node->right) ; // Caso 3: Nodo con dos hijos
+    node->pair->key = nodo_min->pair->key ;
+    node->pair->value = nodo_min->pair->value ;
+
+    removeNode(tree, nodo_min) ;
 }
 
 void eraseTreeMap(TreeMap * tree, void* key){
