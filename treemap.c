@@ -73,10 +73,10 @@ void insertTreeMap(TreeMap *tree, void *key, void *value)
 
         padre = current_aux ;
 
-        if (tree->lower_than(key, current_aux->pair->key))
-            current_aux = current_aux->left ;
+        if (tree->lower_than(key, current_aux->pair->key))  // Si es menor
+            current_aux = current_aux->left ;   // Avanza por la izquierda
         else
-            current_aux = current_aux->right ;
+            current_aux = current_aux->right ;  // Sino, avanza por la derecha
     }
     
     TreeNode *nuevo = createTreeNode(key, value) ;  // Se crea el nuevo nodo
@@ -106,31 +106,36 @@ TreeNode *minimum(TreeNode *x)
 
 /*
 5.- Implemente la función void removeNode(TreeMap * tree, TreeNode* node). Esta función elimina el nodo node del 
-árbol tree. Recuerde que para eliminar un node existen 3 casos: Nodo sin hijos: Se anula el puntero del padre que 
-apuntaba al nodo Nodo con un hijo: El padre del nodo pasa a ser padre de su hijo Nodo con dos hijos: Descienda al 
-hijo derecho y obtenga el menor nodo del subárbol (con la función minimum). Reemplace los datos (key,value) de node 
-con los del nodo "minimum". Elimine el nodo minimum (para hacerlo puede usar la misma función removeNode).
+árbol tree. Recuerde que para eliminar un node existen 3 casos: 
+- Nodo sin hijos: Se anula el puntero del padre que apuntaba al nodo
+- Nodo con un hijo: El padre del nodo pasa a ser padre de su hijo
+- Nodo con dos hijos: Descienda al hijo derecho y obtenga el menor nodo del subárbol (con la función minimum). Reemplace los 
+datos (key,value) de node con los del nodo "minimum". Elimine el nodo minimum (para hacerlo puede usar la misma función removeNode).
 */
 void removeNode(TreeMap *tree, TreeNode *node) 
 {
-    if (node->left == NULL && node->right == NULL)  // Caso 1: Nodo sin hijos
+    // Caso 1: Nodo sin hijos
+    if (node->left == NULL && node->right == NULL)  
     {
+        /*
         if (node->parent == NULL)
             tree->root = NULL ;
         else
         {
-            if (node->parent->left == node)
-                node->parent->left = NULL ;
-            else
-                node->parent->right = NULL ;
-        }
+        */
+        if (node->parent->left == node)
+            node->parent->left = NULL ;
+        else
+            node->parent->right = NULL ;
+        //}
         free(node->pair) ;
         free(node) ;
     
         return ;
     }
 
-    if (node->left == NULL || node->right == NULL)  // Caso 2: Nodo con un solo hijo
+    // Caso 2: Nodo con un solo hijo
+    if (node->left == NULL || node->right == NULL)  
     {
         TreeNode *hijo ;
 
@@ -156,7 +161,8 @@ void removeNode(TreeMap *tree, TreeNode *node)
         return ;
     }
     
-    TreeNode *nodo_min = minimum(node->right) ; // Caso 3: Nodo con dos hijos
+    // Caso 3: Nodo con dos hijos
+    TreeNode *nodo_min = minimum(node->right) ; 
     node->pair->key = nodo_min->pair->key ;
     node->pair->value = nodo_min->pair->value ;
 
