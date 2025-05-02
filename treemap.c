@@ -117,17 +117,13 @@ void removeNode(TreeMap *tree, TreeNode *node)
     // Caso 1: Nodo sin hijos
     if (node->left == NULL && node->right == NULL)  
     {
-        /*
-        if (node->parent == NULL)
-            tree->root = NULL ;
-        else
-        {
-        */
+        // Busco el puntero del padre que apunta al nodo y lo elimino 
         if (node->parent->left == node)
             node->parent->left = NULL ;
         else
             node->parent->right = NULL ;
-        //}
+        
+        // Libero memoria
         free(node->pair) ;
         free(node) ;
     
@@ -137,24 +133,27 @@ void removeNode(TreeMap *tree, TreeNode *node)
     // Caso 2: Nodo con un solo hijo
     if (node->left == NULL || node->right == NULL)  
     {
-        TreeNode *hijo ;
+        TreeNode *hijo = NULL ;
 
+        // Busco el nodo distinto de NULL y se lo asigno a "hijo"
         if (node->left != NULL)
             hijo = node->left ;
         else
             hijo = node->right ;
 
-        if (node->parent == NULL)
-            tree->root = hijo ;
+        if (node->parent == NULL)   // Si el nodo padre es NULL
+            tree->root = hijo ; // A la raiz le asigno el hijo
         else
         {
+            // Busco el padre para que "hijo" pase a ser hijo de su padre y así poder eliminarlo
             if (node->parent->left == node)
                 node->parent->left = hijo ;
             else
                 node->parent->right = hijo ;
         }
-        hijo->parent = node->parent ;
+        hijo->parent = node->parent ;   // Le asigno a "hijo" su padre
         
+        // Libero memoria
         free(node->pair) ;
         free(node) ;
 
@@ -162,11 +161,13 @@ void removeNode(TreeMap *tree, TreeNode *node)
     }
     
     // Caso 3: Nodo con dos hijos
-    TreeNode *nodo_min = minimum(node->right) ; 
+    TreeNode *nodo_min = minimum(node->right) ; // Obtiene el menor nodo del subárbol de la derecha con la función minimum
+    
+    // Reemplazo los datos key y value de "node" con los datos de "nodo_min"
     node->pair->key = nodo_min->pair->key ;
     node->pair->value = nodo_min->pair->value ;
 
-    removeNode(tree, nodo_min) ;
+    removeNode(tree, nodo_min) ;    // Elimino el "nodo_min" con función "removeNode"
 }
 
 void eraseTreeMap(TreeMap * tree, void* key){
