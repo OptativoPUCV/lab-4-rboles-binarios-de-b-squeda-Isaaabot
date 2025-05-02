@@ -254,6 +254,4 @@ Pair *nextTreeMap(TreeMap *tree)
 
         return current_aux->pair ;
     }
-    
-    return NULL ;
 }
