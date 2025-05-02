@@ -237,8 +237,8 @@ Pair *firstTreeMap(TreeMap *tree)
 
 Pair *nextTreeMap(TreeMap *tree) 
 {
-    //if (tree->current == NULL)
-        //return NULL ;
+    if (tree->current == NULL)
+        return NULL ;
 
     TreeNode *current_aux = tree->current ;
 
