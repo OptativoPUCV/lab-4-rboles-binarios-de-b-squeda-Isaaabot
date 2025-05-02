@@ -240,6 +240,7 @@ Pair *nextTreeMap(TreeMap *tree)
     if (tree->current == NULL)
         return NULL ;
 
+    // Caso 1: Tiene hijo derecho y va al minimo del subárbol
     TreeNode *current_aux = tree->current ;
 
     if (current_aux->right != NULL)
@@ -254,4 +255,19 @@ Pair *nextTreeMap(TreeMap *tree)
 
         return current_aux->pair ;
     }
+
+    // Caso 2: No tiene hijo derecho y se sube el ancestro mayor
+    TreeNode *padre = current_aux->parent ;
+
+    while (padre != NULL && current_aux == padre->right)
+    {
+        current_aux = padre ;
+        padre = padre->parent ;
+    }
+    tree->current = padre ;
+
+    if (padre != NULL)
+        return padre->pair ;
+    else   
+        return NULL ;
 }
