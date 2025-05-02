@@ -223,12 +223,37 @@ TreeNode* current. Recuerde actualizar este puntero.
 */
 Pair *firstTreeMap(TreeMap *tree) 
 {
+    TreeNode *current_aux = tree->root ;
 
-    return NULL ;
+    // Recorre a la izquierda
+    while (current_aux->left != NULL)
+    {
+        current_aux = current_aux->left ;
+    }
+    tree->current = current_aux ;   // Actualizamos el "current"
+
+    return current_aux->pair ;
 }
 
 Pair *nextTreeMap(TreeMap *tree) 
 {
+    //if (tree->current == NULL)
+        //return NULL ;
 
+    TreeNode *current_aux = tree->current ;
+
+    if (current_aux->right != NULL)
+    {
+        current_aux = current_aux->right ;
+
+        while (current_aux->left != NULL)
+        {
+            current_aux = current_aux->left ;
+        }
+        tree->current = current_aux ;
+
+        return current_aux->pair ;
+    }
+    
     return NULL ;
 }
