@@ -212,7 +212,31 @@ o igual a key. Finalmente retorne el par del nodo ub_node.
 */
 Pair *upperBound(TreeMap *tree, void *key) 
 {
+    TreeNode *current_aux = tree->root ;
+    TreeNode *ub_node = NULL ;
 
+    while (current_aux != NULL)
+    {
+        if (is_equal(tree, key, current_aux->pair->key))
+        {
+            tree->current = current_aux ;
+            return current_aux->pair ;
+        }
+        
+        if (tree->lower_than(key, current_aux->pair->key))
+        {
+            ub_node = current_aux ;
+            current_aux = current_aux->left ;
+        }
+        else
+            current_aux = current_aux->right ;
+    }
+    if (ub_node != NULL)
+    {
+        tree->current = ub_node ;
+        return ub_node->pair ;
+    }
+    
     return NULL ;
 }
 
