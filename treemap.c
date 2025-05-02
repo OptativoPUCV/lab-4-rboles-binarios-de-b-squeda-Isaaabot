@@ -217,24 +217,26 @@ Pair *upperBound(TreeMap *tree, void *key)
 
     while (current_aux != NULL)
     {
+        // Si key == current_aux->pair->key
         if (is_equal(tree, key, current_aux->pair->key))
         {
             tree->current = current_aux ;
             return current_aux->pair ;
         }
         
+        // Si key < current_aux->pair->key
         if (tree->lower_than(key, current_aux->pair->key))
         {
-            ub_node = current_aux ;
+            ub_node = current_aux ; // A "ub_node" se le asigna "current_aux", ya que sería un posible upper bound
             current_aux = current_aux->left ;
         }
-        else
-            current_aux = current_aux->right ;
+        else    // Si key > current_aux->pair->key
+            current_aux = current_aux->right ;  // Busca en el subárbol derecho
     }
     if (ub_node != NULL)
     {
         tree->current = ub_node ;
-        return ub_node->pair ;
+        return ub_node->pair ;  // Se retorna el par
     }
     
     return NULL ;
