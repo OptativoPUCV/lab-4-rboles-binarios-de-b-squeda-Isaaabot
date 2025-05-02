@@ -230,15 +230,7 @@ Pair *upperBound(TreeMap *tree, void *key)
             ub_node = current_aux ; // A "ub_node" se le asigna "current_aux", ya que sería un posible upper bound
             current_aux = current_aux->left ;
         }
-        else    // Si key > current_aux->pair->key
-            current_aux = current_aux->right ;  // Busca en el subárbol derecho
     }
-    if (ub_node != NULL)
-    {
-        tree->current = ub_node ;
-        return ub_node->pair ;  // Se retorna el par
-    }
-    
     return NULL ;
 }
 
